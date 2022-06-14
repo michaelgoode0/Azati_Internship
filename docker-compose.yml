@@ -1,0 +1,52 @@
+version: '3.5'
+
+services:
+  app:
+    image: 'boot:latest'
+    build:
+      context: ./boot
+    container_name: boot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+      restart: always
+  auth:
+    image: 'auth:latest'
+    build:
+      context: ./microservice
+    container_name: auth
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+      restart: always
+  rabbitmq:
+    image: rabbitmq:3.8.0-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    #  environment:
+    #   - RABBITMQ_DEFAULT_USER=rabbit
+    #  - RABBITMQ_DEFAULT_PASS=password
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  db:
+    image: 'postgres:14'
+    restart: always
+    container_name: pg
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qny47bsq
+      POSTGRES_DB: database
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"

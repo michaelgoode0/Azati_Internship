@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd"
+        logicalFilePath="homework-2">
+
+    <changeSet id="create_database_roles" author="Exception">
+        <createTable tableName="roles">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role" type="varchar(255)"/>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="roles" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="create_database_user_profiles" author="Exception">
+        <createTable tableName="profiles">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(255)"/>
+            <column name="surname" type="varchar(255)"/>
+            <column name="town" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(255)"/>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="profiles" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="create_database_user" author="Exception">
+        <createTable tableName="users">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="profile_id" type="int">
+                <constraints
+                             foreignKeyName="FK_Profile"
+                             referencedTableName="profiles" referencedColumnNames="id" />
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="users" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="create_database_posts" author="Exception">
+        <createTable tableName="posts">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="varchar(255)"/>
+            <column name="author_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_AuthorOfPost"
+                             referencedTableName="profiles" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="posts" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="create_database_post_comment" author="Exception">
+        <createTable tableName="post_comments">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="varchar(255)"/>
+            <column name="author_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_AuthorOfComment_ID"
+                             referencedTableName="profiles" referencedColumnNames="id"/>
+            </column>
+            <column name="post_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Post"
+                             referencedTableName="posts" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="post_comments" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="connect_permissions_and_users" author="Exception">
+        <createTable tableName="users_roles">
+            <column name="user_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_User"
+                             referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="role_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Role"
+                             referencedTableName="roles" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_database_reactions" author="Exception">
+        <createTable tableName="reactions">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="reaction" type="boolean"/>
+            <column name="author_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_AuthorOfReaction_ID"
+                             referencedTableName="profiles" referencedColumnNames="id"/>
+            </column>
+            <column name="post_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_PostReact"
+                             referencedTableName="posts" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="reactions" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="create_database_hashtags" author="Exception">
+        <createTable tableName="hashtags">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="varchar(255)"/>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="hashtags" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="connect_posts_hashtags" author="Exception">
+        <createTable tableName="posts_hashtags">
+            <column name="post_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_PostHash"
+                             referencedTableName="posts" referencedColumnNames="id"/>
+            </column>
+            <column name="hashtags" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Hashtag"
+                             referencedTableName="hashtags" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_database_invites" author="Exception">
+        <createTable tableName="invites">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date_of_invite" type="date"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="to_user_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_toUser_ID"
+                             referencedTableName="profiles" referencedColumnNames="id"/>
+            </column>
+            <column name="from_user_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_fromUser_ID"
+                             referencedTableName="profiles" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="invites" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_hashtags" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_hashtags.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_invites" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_invites.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_post_comments_posts_id" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_post_comments_posts_id.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_reactions" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_reactions.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_users_permissions_permissionid" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_users_permissions_permissionid.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_users_permissions_userid" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_users_permissions_userid.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_roleAdmin_and_roleUser" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_roleAdmin_and_roleUser.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="add_index_to_users_profiles" author="Exception">
+        <sqlFile encoding="utf8" path="./sql/add_index_to_users_profiles.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+
+</databaseChangeLog> 

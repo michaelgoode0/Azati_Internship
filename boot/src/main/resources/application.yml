@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db:5432/database
+    username: postgres
+    password: qny47bsq
+  liquibase:
+    change-log: classpath:/liquibase/changelog-master.xml
+    enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+server:
+  servlet:
+    context-path: /boot
+  port: 8080
+
