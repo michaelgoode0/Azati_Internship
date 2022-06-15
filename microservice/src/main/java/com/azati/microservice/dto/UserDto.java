@@ -1,13 +1,14 @@
 package com.azati.microservice.dto;
 
-import com.azati.microservice.model.Role;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class UserDto {
+    private Long id;
     private String username;
-    private String password;
-    private List<Role> roles;
+    @JsonUnwrapped
+    private List<RoleDto> roles;
 }

@@ -3,6 +3,7 @@ spring:
     database: POSTGRESQL
     hibernate:
       ddl-auto: none
+    open-in-view: false
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://db:5432/database
@@ -15,7 +16,5 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 server:
-  servlet:
-    context-path: /boot
   port: 8080
 

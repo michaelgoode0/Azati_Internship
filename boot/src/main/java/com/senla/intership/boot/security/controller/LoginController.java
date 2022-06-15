@@ -2,7 +2,9 @@ package com.senla.intership.boot.security.controller;
 
 import com.senla.intership.boot.api.service.UserService;
 import com.senla.intership.boot.dto.user.LoginDto;
+import com.senla.intership.boot.dto.user.UserDto;
 import com.senla.intership.boot.dto.user.UserWithAllDto;
+import com.senla.intership.boot.dto.user.UserWithRolesDto;
 import com.senla.intership.boot.security.enums.RoleName;
 import com.senla.intership.boot.util.AuthNameHolder;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +29,8 @@ public class LoginController{
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserWithAllDto> signUp(@RequestBody LoginDto request) {
-        UserWithAllDto response = userService.signUp(request, RoleName.ROLE_USER);
+    public ResponseEntity<UserWithRolesDto> signUp(@RequestBody LoginDto request) {
+        UserWithRolesDto response = userService.signUp(request);
         return ResponseEntity.ok(response);
     }
 
@@ -43,10 +45,5 @@ public class LoginController{
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PostMapping("/signup/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<UserWithAllDto> signUpAdmin(@RequestBody LoginDto request) {
-        UserWithAllDto response = userService.signUp(request,RoleName.ROLE_ADMIN);
-        return ResponseEntity.ok(response);
-    }
+
 }

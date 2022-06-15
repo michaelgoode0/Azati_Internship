@@ -50,8 +50,8 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRoles(Collections.singleton(userRole));
-        userRepository.save(user);
-        return mapper.map(user, UserDto.class);
+        User response = userRepository.save(user);
+        return mapper.map(response, UserDto.class);
     }
 
     @Override
