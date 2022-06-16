@@ -1,10 +1,10 @@
 package com.senla.intership.boot.controller;
 
 import com.senla.intership.boot.BootApplicationTests;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.UserProfile;
+import com.senla.intership.boot.repository.PostRepository;
+import com.senla.intership.boot.repository.UserProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class PostControllerTests extends BootApplicationTests {
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private UserProfileRepository userProfileRepository;
-
-    private Post firstPost;
-    private Post secondPost;
     private static final String firstText = "hye";
     private static final String secondText = "hello";
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+    private Post firstPost;
+    private Post secondPost;
 
     @BeforeEach
     public void init() {
@@ -80,13 +78,13 @@ public class PostControllerTests extends BootApplicationTests {
 
     @Test
     public void shouldUpdateCommentCorrect() throws Exception {
-        String postDto =String.format(
+        String postDto = String.format(
                 """
-                {
-                     "id": %s,
-                     "text": "text"
-                }
-                """,firstPost.getId());
+                        {
+                             "id": %s,
+                             "text": "text"
+                        }
+                        """, firstPost.getId());
         mockMvc.perform(
                 put("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -102,7 +100,7 @@ public class PostControllerTests extends BootApplicationTests {
     @Test
     public void shouldDeleteCommentCorrect() throws Exception {
         mockMvc.perform(
-                delete("/posts/{id}",firstPost.getId())
+                delete("/posts/{id}", firstPost.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .principal(authenticationToken))
@@ -134,7 +132,6 @@ public class PostControllerTests extends BootApplicationTests {
                 .andExpect(jsonPath("$.id").value(firstPost.getId()))
                 .andExpect(jsonPath("$.text").value(firstPost.getText()));
     }*/
-
 
 
 }

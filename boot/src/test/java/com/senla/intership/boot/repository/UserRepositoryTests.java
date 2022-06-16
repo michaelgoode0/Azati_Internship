@@ -1,12 +1,11 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
+import com.senla.intership.boot.entity.Role;
 import com.senla.intership.boot.entity.User;
 import com.senla.intership.boot.entity.UserProfile;
-import com.senla.intership.boot.api.repository.UserRepository;
-import com.senla.intership.boot.api.repository.impl.UserRepositoryImpl;
-import com.senla.intership.boot.security.enums.RoleName;
-import com.senla.intership.boot.entity.Role;
+import com.senla.intership.boot.enums.RoleName;
+import com.senla.intership.boot.repository.impl.UserRepositoryImpl;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,19 +24,18 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class UserRepositoryTests {
 
+    private static final String ilyaUsername = "ilya";
+    private static final String ilyaPassword = "ilya_password";
+    private static final String kirillUsername = "kirill";
+    private static final String kirillPassword = "kirill_password";
     @Autowired
     private UserRepository userRepository;
-
     private User ilya;
     private User kirill;
-    private static final String ilyaUsername="ilya";
-    private static final String ilyaPassword="ilya_password";
-    private static final String kirillUsername="kirill";
-    private static final String kirillPassword="kirill_password";
 
     @BeforeEach
     public void init() {
-        if (userRepository.getAll().size()==0) {
+        if (userRepository.getAll().size() == 0) {
             UserProfile ilyaProfile = new UserProfile();
             ilyaProfile.setFirstname("Ilya");
             ilya = new User();
@@ -60,9 +58,10 @@ public class UserRepositoryTests {
             kirill = userRepository.get(2L);
         }
     }
+
     @Test
     public void hibernateShouldSetIdWhenUserSaved() {
-        assertEquals(ilya.getId(),1L);
+        assertEquals(ilya.getId(), 1L);
         assertNotNull(kirill.getId());
     }
 
@@ -139,12 +138,12 @@ public class UserRepositoryTests {
     public void hibernateShouldUpdateUser() {
 
         UserProfile userProfile = new UserProfile();
-        String name="alesha";
+        String name = "alesha";
         userProfile.setFirstname(name);
         ilya.setProfile(userProfile);
         userRepository.update(ilya);
 
-        assertEquals(ilya.getProfile().getFirstname(),name);
+        assertEquals(ilya.getProfile().getFirstname(), name);
     }
    /* @Test
     public void userShouldBeDeletedSuccess() {

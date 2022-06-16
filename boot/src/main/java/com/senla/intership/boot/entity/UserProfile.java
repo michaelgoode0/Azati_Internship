@@ -18,11 +18,11 @@ public class UserProfile {
     private String surname;
     private String town;
     private Long phoneNumber;
-    @OneToOne(mappedBy = "profile",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private User user;
-    @OneToMany(mappedBy = "profile",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> posts;
-    @OneToMany(mappedBy = "profile",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
     private List<Reaction> reaction;
 }

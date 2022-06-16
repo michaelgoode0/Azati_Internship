@@ -1,4 +1,4 @@
-package com.senla.intership.boot.api.service;
+package com.senla.intership.boot.service;
 
 import com.senla.intership.boot.dto.post.PostDto;
 import com.senla.intership.boot.dto.post.PostWithAllDto;

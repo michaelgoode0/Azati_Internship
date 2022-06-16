@@ -1,12 +1,12 @@
 package com.senla.intership.boot.controller;
 
 import com.senla.intership.boot.BootApplicationTests;
+import com.senla.intership.boot.entity.Role;
 import com.senla.intership.boot.entity.User;
 import com.senla.intership.boot.entity.UserProfile;
-import com.senla.intership.boot.api.repository.RoleRepository;
-import com.senla.intership.boot.api.repository.UserRepository;
-import com.senla.intership.boot.security.enums.RoleName;
-import com.senla.intership.boot.entity.Role;
+import com.senla.intership.boot.enums.RoleName;
+import com.senla.intership.boot.repository.RoleRepository;
+import com.senla.intership.boot.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,19 +16,16 @@ import java.util.Collections;
 @Transactional
 public class LoginControllerTests extends BootApplicationTests {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    private User ilya;
-    private User kirill;
     private static final String ilyaUsername = "ilya";
     private static final String ilyaPassword = "ilya_password";
     private static final String kirillUsername = "kirill";
     private static final String kirillPassword = "kirill_password";
-
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    private User ilya;
+    private User kirill;
 
     @BeforeEach
     public void init() {

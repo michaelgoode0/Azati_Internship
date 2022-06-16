@@ -1,9 +1,8 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
-import com.senla.intership.boot.api.repository.RoleRepository;
-import com.senla.intership.boot.security.enums.RoleName;
 import com.senla.intership.boot.entity.Role;
+import com.senla.intership.boot.enums.RoleName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ public class RoleRepositoryTests {
 
     private Role userRole;
     private Role adminRole;
+
     @BeforeEach
     public void init() {
         if (roleRepository.findAll().size() == 0) {
@@ -47,7 +47,7 @@ public class RoleRepositoryTests {
     @Test
     public void shouldFindHashtagByIdCorrect() {
         final Role potentialRole = roleRepository.findById(userRole.getId()).orElse(new Role());
-        final Role  potentialRole2 = roleRepository.findById(adminRole.getId()).orElse(new Role());
+        final Role potentialRole2 = roleRepository.findById(adminRole.getId()).orElse(new Role());
         assertEquals(userRole.getId(), potentialRole.getId());
         assertEquals(adminRole.getId(), potentialRole2.getId());
     }
@@ -64,7 +64,7 @@ public class RoleRepositoryTests {
     @Test
     public void shouldFindHashtagByRoleNameCorrect() {
         final Role potentialRole = roleRepository.findRoleByRoleName(RoleName.ROLE_USER);
-        final Role  potentialRole2 = roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN);
+        final Role potentialRole2 = roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN);
         assertEquals(userRole.getRoleName(), potentialRole.getRoleName());
         assertEquals(adminRole.getRoleName(), potentialRole2.getRoleName());
     }

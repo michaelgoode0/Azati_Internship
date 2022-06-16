@@ -1,2 +1,3 @@
-create index text
+create
+index text
 on hashtags(text)

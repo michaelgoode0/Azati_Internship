@@ -1,8 +1,9 @@
 package com.senla.intership.boot.service;
 
-import com.senla.intership.boot.api.repository.HashtagRepository;
 import com.senla.intership.boot.dto.hashtag.HashtagWithPostsDto;
 import com.senla.intership.boot.entity.Hashtag;
+import com.senla.intership.boot.repository.HashtagRepository;
+import com.senla.intership.boot.service.impl.HashtagServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,21 +22,17 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class HashtagServiceTests {
 
+    private static final String firstValue = "#hash";
     @InjectMocks
     private HashtagServiceImpl hashtagService;
-
     @Mock
     private HashtagRepository hashtagRepository;
-
     @Spy
     private ModelMapper mapper;
 
-    private static final String firstValue = "#hash";
-
-
     @Test
-    public void shouldSaveHashtagCorrect(){
-        Hashtag firstHashtag= new Hashtag();
+    public void shouldSaveHashtagCorrect() {
+        Hashtag firstHashtag = new Hashtag();
         firstHashtag.setId(123L);
         firstHashtag.setValue(firstValue);
         when(hashtagRepository.save(any())).thenReturn(firstHashtag);
@@ -43,12 +40,13 @@ public class HashtagServiceTests {
         HashtagWithPostsDto hashtagDto = new HashtagWithPostsDto();
         hashtagDto.setValue(firstValue);
         hashtagDto = hashtagService.save(hashtagDto);
-        assertEquals(123L,hashtagDto.getId());
-        assertEquals(firstValue,hashtagDto.getValue());
+        assertEquals(123L, hashtagDto.getId());
+        assertEquals(firstValue, hashtagDto.getValue());
     }
+
     @Test
-    public void shouldGetHashtagCorrect(){
-        Hashtag firstHashtag= new Hashtag();
+    public void shouldGetHashtagCorrect() {
+        Hashtag firstHashtag = new Hashtag();
         firstHashtag.setId(123L);
         firstHashtag.setValue(firstValue);
         when(hashtagRepository.save(any())).thenReturn(firstHashtag);
@@ -58,12 +56,13 @@ public class HashtagServiceTests {
         hashtagDto.setValue(firstValue);
         hashtagService.save(hashtagDto);
         hashtagDto = hashtagService.read(123L);
-        assertEquals(123L,hashtagDto.getId());
-        assertEquals(firstValue,hashtagDto.getValue());
+        assertEquals(123L, hashtagDto.getId());
+        assertEquals(firstValue, hashtagDto.getValue());
     }
+
     @Test
-    public void shouldDeleteHashtagCorrect(){
-        Hashtag firstHashtag= new Hashtag();
+    public void shouldDeleteHashtagCorrect() {
+        Hashtag firstHashtag = new Hashtag();
         firstHashtag.setId(123L);
         firstHashtag.setValue(firstValue);
         when(hashtagRepository.save(any())).thenReturn(firstHashtag);
@@ -76,8 +75,6 @@ public class HashtagServiceTests {
 
         verify(hashtagRepository).deleteById(hashtagDto.getId());
     }
-
-
 
 
 }

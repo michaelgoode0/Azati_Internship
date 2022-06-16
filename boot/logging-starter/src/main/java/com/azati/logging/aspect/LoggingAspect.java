@@ -13,10 +13,11 @@ public class LoggingAspect {
     private final Logger logger = LoggerFactory.getLogger(LoggingAspect.class.getName());
 
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController) || @annotation(org.springframework.web.bind.annotation.RestController)")
-    public void executeTiming(){}
+    public void executeTiming() {
+    }
 
     @After("executeTiming()")
-    public void logMethodCall(JoinPoint joinPoint){
+    public void logMethodCall(JoinPoint joinPoint) {
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
@@ -25,16 +26,15 @@ public class LoggingAspect {
 
     @AfterReturning(value = "executeTiming()", returning = "result")
     public void logAfterReturning(Object result) {
-        if(result != null){
+        if (result != null) {
             logger.info("Returning value: {}", result);
-        }
-        else {
+        } else {
             logger.info("Result is null");
         }
     }
 
     @Around("executeTiming()")
-    public Object logMethodTiming(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+    public Object logMethodTiming(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long startTIme = System.currentTimeMillis();
         Object returnValue = proceedingJoinPoint.proceed();
         Long totalTime = System.currentTimeMillis() - startTIme;

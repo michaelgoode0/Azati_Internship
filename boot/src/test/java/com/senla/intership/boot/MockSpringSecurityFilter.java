@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public class MockSpringSecurityFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -19,7 +20,8 @@ public class MockSpringSecurityFilter implements Filter {
         chain.doFilter(req, res);
     }
 
-    public void getFilters(MockHttpServletRequest mockHttpServletRequest){}
+    public void getFilters(MockHttpServletRequest mockHttpServletRequest) {
+    }
 
     @Override
     public void destroy() {

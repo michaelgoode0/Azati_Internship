@@ -1,15 +1,15 @@
-package com.senla.intership.boot.service;
+package com.senla.intership.boot.service.impl;
 
-import com.senla.intership.boot.api.repository.PostCommentRepository;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.service.PostCommentService;
 import com.senla.intership.boot.dto.comment.PostCommentWithAllDto;
 import com.senla.intership.boot.dto.comment.PostCommentWithPostDto;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.PostComment;
 import com.senla.intership.boot.entity.User;
-import com.senla.intership.boot.exceptions.ResourceNotFoundException;
-import com.senla.intership.boot.api.repository.UserRepository;
+import com.senla.intership.boot.exceptions.custom.ResourceNotFoundException;
+import com.senla.intership.boot.repository.PostCommentRepository;
+import com.senla.intership.boot.repository.PostRepository;
+import com.senla.intership.boot.repository.UserRepository;
+import com.senla.intership.boot.service.PostCommentService;
 import com.senla.intership.boot.util.AuthNameHolder;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -41,8 +41,8 @@ public class PostCommentServiceImpl implements PostCommentService {
     @Transactional
     public PostCommentWithPostDto update(PostCommentWithPostDto commentDto) {
         PostComment postComment = postCommentRepository.findById(commentDto.getId())
-                .orElseThrow((()->new ResourceNotFoundException("Post comment with id:" + commentDto.getId()+" not found")));
-        mapper.map(commentDto,postComment);
+                .orElseThrow((() -> new ResourceNotFoundException("Post comment with id:" + commentDto.getId() + " not found")));
+        mapper.map(commentDto, postComment);
         PostComment response = postCommentRepository.save(postComment);
         return mapper.map(response, PostCommentWithPostDto.class);
     }
@@ -57,7 +57,7 @@ public class PostCommentServiceImpl implements PostCommentService {
     @Transactional
     public PostCommentWithAllDto read(Long id) {
         PostComment response = postCommentRepository.findById(id)
-                .orElseThrow((()->new ResourceNotFoundException("Post comment with id:" + id +" not found")));
+                .orElseThrow((() -> new ResourceNotFoundException("Post comment with id:" + id + " not found")));
         return mapper.map(response, PostCommentWithAllDto.class);
     }
 

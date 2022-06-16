@@ -1,8 +1,9 @@
 package com.senla.intership.boot.service;
 
-import com.senla.intership.boot.api.repository.InviteRepository;
 import com.senla.intership.boot.dto.invite.InviteDto;
 import com.senla.intership.boot.entity.Invite;
+import com.senla.intership.boot.repository.InviteRepository;
+import com.senla.intership.boot.service.impl.InviteServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,7 +32,7 @@ public class InviteServiceTests {
     private ModelMapper mapper;
 
     @Test
-    public void shouldReadInviteCorrect(){
+    public void shouldReadInviteCorrect() {
         Invite invite = new Invite();
         Date date = new Date();
         invite.setDateOfInvite(date);
@@ -45,11 +46,12 @@ public class InviteServiceTests {
         inviteService.save(inviteDto);
         inviteDto = inviteService.read(123L);
 
-        assertEquals(inviteDto.getId(),123L);
-        assertEquals(inviteDto.getDateOfInvite(),date);
+        assertEquals(inviteDto.getId(), 123L);
+        assertEquals(inviteDto.getDateOfInvite(), date);
     }
+
     @Test
-    public void shouldSaveInviteCorrect(){
+    public void shouldSaveInviteCorrect() {
         Invite invite = new Invite();
         Date date = new Date();
         invite.setDateOfInvite(date);
@@ -61,7 +63,7 @@ public class InviteServiceTests {
         inviteDto.setDateOfInvite(date);
         inviteDto = inviteService.save(inviteDto);
 
-        assertEquals(inviteDto.getId(),123L);
-        assertEquals(inviteDto.getDateOfInvite(),date);
+        assertEquals(inviteDto.getId(), 123L);
+        assertEquals(inviteDto.getDateOfInvite(), date);
     }
 }

@@ -1,8 +1,6 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
-import com.senla.intership.boot.api.repository.InviteRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Invite;
 import com.senla.intership.boot.entity.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
@@ -86,11 +84,11 @@ public class InviteRepositoryTests {
     }
 
     @Test
-    public void shouldFindInviteByUserToAndUserFromCorrect(){
+    public void shouldFindInviteByUserToAndUserFromCorrect() {
 
         final Invite potentialInvite = inviteRepository.findInviteByUserToAndUserFrom(firstInvite.getUserTo(), firstInvite.getUserFrom());
 
-        assertEquals(firstInvite,potentialInvite);
+        assertEquals(firstInvite, potentialInvite);
     }
 
 }

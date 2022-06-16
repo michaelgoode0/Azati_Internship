@@ -1,12 +1,12 @@
 package com.senla.intership.boot.controller;
 
 import com.senla.intership.boot.BootApplicationTests;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.repository.ReactionRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.Reaction;
 import com.senla.intership.boot.entity.UserProfile;
+import com.senla.intership.boot.repository.PostRepository;
+import com.senla.intership.boot.repository.ReactionRepository;
+import com.senla.intership.boot.repository.UserProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ReactionControllerTests extends BootApplicationTests {
     private Reaction secondReaction;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         UserProfile userProfile = new UserProfile();
         userProfileRepository.save(userProfile);
 

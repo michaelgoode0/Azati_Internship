@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration = com.azati.logging.LoggerConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.azati.logging.LoggerConfig

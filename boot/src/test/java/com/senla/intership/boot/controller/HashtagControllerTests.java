@@ -2,8 +2,8 @@ package com.senla.intership.boot.controller;
 
 
 import com.senla.intership.boot.BootApplicationTests;
-import com.senla.intership.boot.api.repository.HashtagRepository;
 import com.senla.intership.boot.entity.Hashtag;
+import com.senla.intership.boot.repository.HashtagRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class HashtagControllerTests extends BootApplicationTests {
 
 
     @BeforeEach
-    public void init(){
+    public void init() {
         hashtag = new Hashtag();
         hashtag.setValue("text");
         hashtag = hashtagRepository.save(hashtag);
@@ -43,7 +43,7 @@ public class HashtagControllerTests extends BootApplicationTests {
                 get("/hashtags")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                .principal(authenticationToken))
+                        .principal(authenticationToken))
                 .andExpect(jsonPath("$[0].id").value(hashtag.getId()))
                 .andExpect(jsonPath("$[1].id").value(hashtag1.getId()))
                 .andExpect(jsonPath("$[0].value").value(hashtag.getValue()))

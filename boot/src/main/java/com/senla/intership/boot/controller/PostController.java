@@ -1,23 +1,22 @@
 package com.senla.intership.boot.controller;
 
-import com.senla.intership.boot.api.service.PostService;
 import com.senla.intership.boot.dto.post.PostDto;
 import com.senla.intership.boot.dto.post.PostWithAllDto;
 import com.senla.intership.boot.dto.post.PostWithProfileDto;
 import com.senla.intership.boot.dto.post.PostWithReactionsDto;
+import com.senla.intership.boot.service.PostService;
 import com.senla.intership.boot.util.SortHelper;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +40,7 @@ public class PostController {
             @ApiResponse(code = 404, message = "The resource not found"),
             @ApiResponse(code = 403, message = "Invalid Data")
     })
-    public ResponseEntity<PostDto> create (@RequestBody @Valid PostDto request){
+    public ResponseEntity<PostDto> create(@RequestBody @Valid PostDto request) {
         PostDto response = postService.create(request);
         return ResponseEntity.ok(response);
     }
@@ -53,8 +52,8 @@ public class PostController {
             @ApiResponse(code = 404, message = "The resource not found"),
             @ApiResponse(code = 403, message = "Post is not exist")
     })
-    public ResponseEntity<PostWithAllDto> get (@PathVariable @NotNull(message = "Post id can not be null")
-                                                   @Positive(message = "Post id can not be negative") Long id){
+    public ResponseEntity<PostWithAllDto> get(@PathVariable @NotNull(message = "Post id can not be null")
+                                              @Positive(message = "Post id can not be negative") Long id) {
         PostWithAllDto response = postService.read(id);
         return ResponseEntity.ok(response);
     }
@@ -66,8 +65,9 @@ public class PostController {
             @ApiResponse(code = 404, message = "The resource not found"),
             @ApiResponse(code = 403, message = "Post is not exist.")
     })
-    public ResponseEntity<Void> delete (@PathVariable @NotNull(message = "Post id can not be null")
-                                                      @Positive(message = "Post id can not be negative") Long id){
+    @PreAuthorize("hasRole('ADMIN')" + "|| @postServiceImpl.read(#id).profile.user.username == authentication.name")
+    public ResponseEntity<Void> delete(@PathVariable @NotNull(message = "Post id can not be null")
+                                       @Positive(message = "Post id can not be negative") Long id) {
         postService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -79,31 +79,33 @@ public class PostController {
             @ApiResponse(code = 404, message = "The resource not found"),
             @ApiResponse(code = 403, message = "Post is not exist.")
     })
-    public ResponseEntity<PostWithProfileDto> update(@RequestBody @Valid PostDto request){
+    @PreAuthorize("hasRole('ADMIN')" + "|| @postServiceImpl.read(#request.id).profile.user.username == authentication.name")
+    public ResponseEntity<PostWithProfileDto> update(@RequestBody @Valid PostDto request) {
         PostWithProfileDto response = postService.update(request);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{postId}/like")
     public ResponseEntity<PostWithReactionsDto> like(@PathVariable @NotNull(message = "Post id can not be null")
-                                                         @Positive(message = "Post id can not be negative") Long postId){
-        PostWithReactionsDto response = postService.setReaction(postId,true);
+                                                     @Positive(message = "Post id can not be negative") Long postId) {
+        PostWithReactionsDto response = postService.setReaction(postId, true);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{postId}/dislike")
-    public ResponseEntity<PostWithReactionsDto> dislike (@PathVariable @NotNull(message = "Post id can not be null")
-                                                             @Positive(message = "Post id can not be negative") Long postId){
-        PostWithReactionsDto response = postService.setReaction(postId,false);
+    public ResponseEntity<PostWithReactionsDto> dislike(@PathVariable @NotNull(message = "Post id can not be null")
+                                                        @Positive(message = "Post id can not be negative") Long postId) {
+        PostWithReactionsDto response = postService.setReaction(postId, false);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<PostWithAllDto>> getAll(@RequestParam(required = false, defaultValue = "id") String sort,
-                                                            @RequestParam(required = false, defaultValue = "0") Integer page,
-                                                            @RequestParam(required = false, defaultValue = "asc")String direction,
-                                                            @RequestParam(required = false, defaultValue = "10")Integer size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(SortHelper.orderDirection(direction),sort));
+                                                       @RequestParam(required = false, defaultValue = "0") Integer page,
+                                                       @RequestParam(required = false, defaultValue = "asc") String direction,
+                                                       @RequestParam(required = false, defaultValue = "10") Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(SortHelper.orderDirection(direction), sort));
         Page<PostWithAllDto> result = postService.findAll(pageable);
         return ResponseEntity.ok(result.getContent());
     }

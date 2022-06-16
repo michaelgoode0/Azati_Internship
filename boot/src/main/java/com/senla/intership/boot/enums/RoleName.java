@@ -1,4 +1,4 @@
-package com.senla.intership.boot.security.enums;
+package com.senla.intership.boot.enums;
 
 public enum RoleName {
     ROLE_USER,

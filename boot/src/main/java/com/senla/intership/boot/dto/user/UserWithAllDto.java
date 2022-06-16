@@ -5,6 +5,7 @@ import com.senla.intership.boot.dto.role.RoleDto;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 public class UserWithAllDto {
     private Long id;

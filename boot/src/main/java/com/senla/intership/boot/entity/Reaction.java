@@ -17,10 +17,10 @@ public class Reaction {
     private Boolean reaction;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="author_id")
+    @JoinColumn(name = "author_id")
     private UserProfile profile;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "post_id")
     private Post post;
 }

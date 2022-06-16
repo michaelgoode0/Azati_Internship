@@ -1,9 +1,6 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.repository.ReactionRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.Reaction;
 import com.senla.intership.boot.entity.UserProfile;
@@ -88,11 +85,11 @@ public class ReactionRepositoryTests {
     }
 
     @Test
-    public void shouldFindAllCorrect(){
+    public void shouldFindAllCorrect() {
         List<Reaction> listOfReactions = reactionRepository.findAll();
         assertTrue(listOfReactions.contains(firstReaction));
         assertTrue(listOfReactions.contains(secondReaction));
-        assertEquals(listOfReactions.size(),2);
+        assertEquals(listOfReactions.size(), 2);
     }
 
   /*  @Test

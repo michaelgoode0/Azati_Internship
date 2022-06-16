@@ -9,17 +9,17 @@ public class AuthorizedUserDTO extends User {
 
     private Long id;
 
+    public AuthorizedUserDTO(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+        setId(id);
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public AuthorizedUserDTO(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-        setId(id);
     }
 
 }

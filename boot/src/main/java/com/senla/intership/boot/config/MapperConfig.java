@@ -9,14 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MapperConfig {
     @Bean
-    public ModelMapper mapper(){
+    public ModelMapper mapper() {
         ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper;
     }
 
     @Bean
-    public ObjectMapper objectMapper(){
-        return  new ObjectMapper();
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }

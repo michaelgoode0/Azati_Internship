@@ -23,7 +23,7 @@ public class Role implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
-    @ManyToMany(mappedBy ="roles",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> users;
 
     @Override

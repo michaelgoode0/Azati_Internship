@@ -10,7 +10,7 @@ public class LoggerConf {
 
     @Bean
     @ConditionalOnMissingBean
-    public LoggingAspect loggingAspect(){
+    public LoggingAspect loggingAspect() {
         return new LoggingAspect();
     }
 }

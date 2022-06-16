@@ -1,2 +1,3 @@
-Create index profile_username
+Create
+index profile_username
 on profiles(firstname);

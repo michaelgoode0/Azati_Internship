@@ -20,21 +20,22 @@ import static com.senla.intership.boot.security.filter.TokenProvider.DEFAULT_TOK
 public class JwtFilter extends GenericFilterBean {
 
     private final TokenProvider tokenProvider;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String token =resolveToken(httpServletRequest);
+        String token = resolveToken(httpServletRequest);
 
-        if(StringUtils.hasText(token) && tokenProvider.validateToken(token)){
+        if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
             Authentication authentication = tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private String resolveToken(HttpServletRequest request){
+    private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if(StringUtils.hasText(bearerToken)&& bearerToken.startsWith(DEFAULT_TOKEN_TYPE)){
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(DEFAULT_TOKEN_TYPE)) {
             return bearerToken.substring(DEFAULT_TOKEN_TYPE.length());
         }
         return null;

@@ -10,7 +10,7 @@ import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 @Configuration
 public class ModelMapperConfig {
     @Bean
-    public ModelMapper mapper(){
+    public ModelMapper mapper() {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT)

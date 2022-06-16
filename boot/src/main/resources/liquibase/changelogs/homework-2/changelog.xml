@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd"
         logicalFilePath="homework-2">
@@ -38,8 +38,8 @@
             <column name="password" type="varchar(255)"/>
             <column name="profile_id" type="int">
                 <constraints
-                             foreignKeyName="FK_Profile"
-                             referencedTableName="profiles" referencedColumnNames="id" />
+                        foreignKeyName="FK_Profile"
+                        referencedTableName="profiles" referencedColumnNames="id"/>
             </column>
         </createTable>
         <addAutoIncrement columnName="id" tableName="users" columnDataType="int" incrementBy="1" startWith="1"/>
@@ -178,7 +178,8 @@
     </changeSet>
 
     <changeSet id="add_index_to_users_permissions_permissionid" author="Exception">
-        <sqlFile encoding="utf8" path="./sql/add_index_to_users_permissions_permissionid.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="./sql/add_index_to_users_permissions_permissionid.sql"
+                 relativeToChangelogFile="true"/>
     </changeSet>
 
     <changeSet id="add_index_to_users_permissions_userid" author="Exception">
@@ -194,5 +195,4 @@
     </changeSet>
 
 
-
-</databaseChangeLog> 
+</databaseChangeLog>

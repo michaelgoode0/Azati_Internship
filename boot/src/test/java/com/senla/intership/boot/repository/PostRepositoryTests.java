@@ -1,8 +1,6 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,17 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ContextConfiguration(classes = {BootApplication.class})
 @DataJpaTest
-public class PostRepositoryTests{
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private UserProfileRepository userProfileRepository;
-
-    private Post firstPost;
-    private Post secondPost;
+public class PostRepositoryTests {
     private static final String firstText = "hye";
     private static final String secondText = "hello";
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+    private Post firstPost;
+    private Post secondPost;
+
     @BeforeEach
     public void init() {
         if (postRepository.findAll().size() == 0) {

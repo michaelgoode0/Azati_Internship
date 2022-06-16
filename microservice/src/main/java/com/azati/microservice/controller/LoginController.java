@@ -16,13 +16,13 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @PostMapping("/create")
-    public String createToken(@RequestBody LoginDto dto){
+    @PostMapping("/token")
+    public String createToken(@RequestBody LoginDto dto) {
         return loginService.signIn(dto);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> registration(@RequestBody LoginDto dto){
-        return ResponseEntity.ok(loginService.signUp(dto,RoleName.ROLE_USER));
+    public ResponseEntity<UserDto> registration(@RequestBody LoginDto dto) {
+        return ResponseEntity.ok(loginService.signUp(dto, RoleName.ROLE_USER));
     }
 }

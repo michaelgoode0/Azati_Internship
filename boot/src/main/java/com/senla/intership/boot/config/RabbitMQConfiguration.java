@@ -18,17 +18,17 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public Queue queue(){
+    public Queue queue() {
         return new Queue("Queue 1");
     }
 
     @Bean
-    public DirectExchange exchange(){
+    public DirectExchange exchange() {
         return new DirectExchange("Exchange");
     }
 
     @Bean
-    public Binding binding(Queue queue, DirectExchange directExchange){
+    public Binding binding(Queue queue, DirectExchange directExchange) {
         return BindingBuilder.bind(queue).to(directExchange).with("user");
     }
 }

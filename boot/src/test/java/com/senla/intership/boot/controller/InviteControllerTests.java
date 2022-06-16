@@ -1,10 +1,10 @@
 package com.senla.intership.boot.controller;
 
 import com.senla.intership.boot.BootApplicationTests;
-import com.senla.intership.boot.api.repository.InviteRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Invite;
 import com.senla.intership.boot.entity.UserProfile;
+import com.senla.intership.boot.repository.InviteRepository;
+import com.senla.intership.boot.repository.UserProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +33,10 @@ public class InviteControllerTests extends BootApplicationTests {
     private UserProfile userProfile1;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         userProfile = new UserProfile();
         userProfile.setFirstname("Artyom");
-        userProfile =  userProfileRepository.save(userProfile);
+        userProfile = userProfileRepository.save(userProfile);
 
         userProfile1 = new UserProfile();
         userProfile1.setFirstname("Ilya");

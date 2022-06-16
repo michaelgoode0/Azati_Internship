@@ -1,4 +1,4 @@
-package com.senla.intership.boot.api.service;
+package com.senla.intership.boot.service;
 
 import com.senla.intership.boot.dto.post.PostDto;
 import com.senla.intership.boot.dto.reaction.ReactionDto;
@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ReactionService {
-   void react(PostDto postDto, boolean reaction);
-   List<ReactionDto> getAll();
-   Page<ReactionWithProfileDto> findAllByPost(Pageable pageable, Long id);
+    void react(PostDto postDto, boolean reaction);
+
+    List<ReactionDto> getAll();
+
+    Page<ReactionWithProfileDto> findAllByPost(Pageable pageable, Long id);
 }

@@ -1,12 +1,12 @@
 package com.senla.intership.boot.controller;
 
 import com.senla.intership.boot.BootApplicationTests;
-import com.senla.intership.boot.api.repository.PostCommentRepository;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.PostComment;
 import com.senla.intership.boot.entity.UserProfile;
+import com.senla.intership.boot.repository.PostCommentRepository;
+import com.senla.intership.boot.repository.PostRepository;
+import com.senla.intership.boot.repository.UserProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class PostCommentControllerTests extends BootApplicationTests {
 
+    private static final String firstText = "hye";
     @Autowired
     private PostCommentRepository postCommentRepository;
-
     @Autowired
     private UserProfileRepository userProfileRepository;
-
     @Autowired
     private PostRepository postRepository;
-
     private PostComment firstComment;
-    private static final String firstText = "hye";
     private Post post;
 
     @BeforeEach

@@ -17,9 +17,9 @@ public class Hashtag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min = 2,max = 100)
+    @Size(min = 2, max = 100)
     @Column(name = "text")
     private String value;
-    @ManyToMany(mappedBy ="hashtags", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "hashtags", fetch = FetchType.LAZY)
     private List<Post> posts;
 }

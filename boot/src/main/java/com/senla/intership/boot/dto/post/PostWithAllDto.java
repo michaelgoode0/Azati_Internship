@@ -1,8 +1,8 @@
 package com.senla.intership.boot.dto.post;
 
-import com.senla.intership.boot.dto.reaction.ReactionDto;
-import com.senla.intership.boot.dto.profile.UserProfileWithUserDto;
 import com.senla.intership.boot.dto.comment.PostCommentDto;
+import com.senla.intership.boot.dto.profile.UserProfileWithUserDto;
+import com.senla.intership.boot.dto.reaction.ReactionDto;
 import lombok.Data;
 
 import java.util.List;

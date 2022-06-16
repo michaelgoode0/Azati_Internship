@@ -1,9 +1,6 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
-import com.senla.intership.boot.api.repository.PostCommentRepository;
-import com.senla.intership.boot.api.repository.PostRepository;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.PostComment;
 import com.senla.intership.boot.entity.UserProfile;
@@ -19,19 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ContextConfiguration(classes = {BootApplication.class})
 @DataJpaTest
 public class PostCommentRepositoryTests {
-    @Autowired
-    private PostCommentRepository postCommentRepository;
-
-    @Autowired
-    private UserProfileRepository userProfileRepository;
-
-    @Autowired
-    private PostRepository postRepository;
-
-    private PostComment firstComment;
-    private PostComment secondComment;
     private static final String firstText = "hye";
     private static final String secondText = "hello";
+    @Autowired
+    private PostCommentRepository postCommentRepository;
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+    @Autowired
+    private PostRepository postRepository;
+    private PostComment firstComment;
+    private PostComment secondComment;
+
     @BeforeEach
     public void init() {
         if (postCommentRepository.findAll().size() == 0) {
@@ -40,7 +35,6 @@ public class PostCommentRepositoryTests {
             Post post = new Post();
             post.setProfile(userProfile);
             postRepository.save(post);
-
 
 
             firstComment = new PostComment();
@@ -56,7 +50,6 @@ public class PostCommentRepositoryTests {
             post1.setProfile(userProfile1);
 
             postRepository.save(post1);
-
 
 
             secondComment = new PostComment();

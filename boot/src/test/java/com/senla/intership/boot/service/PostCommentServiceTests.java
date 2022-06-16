@@ -1,6 +1,7 @@
 package com.senla.intership.boot.service;
 
-import com.senla.intership.boot.api.repository.PostCommentRepository;
+import com.senla.intership.boot.repository.PostCommentRepository;
+import com.senla.intership.boot.service.impl.PostCommentServiceImpl;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

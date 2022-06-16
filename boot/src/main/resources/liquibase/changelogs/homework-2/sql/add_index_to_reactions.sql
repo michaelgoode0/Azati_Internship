@@ -1,2 +1,3 @@
-create index post
+create
+index post
 on reactions(post_id)

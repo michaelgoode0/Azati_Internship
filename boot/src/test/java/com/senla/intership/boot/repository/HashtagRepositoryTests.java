@@ -1,7 +1,6 @@
 package com.senla.intership.boot.repository;
 
 import com.senla.intership.boot.BootApplication;
-import com.senla.intership.boot.api.repository.HashtagRepository;
 import com.senla.intership.boot.entity.Hashtag;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,18 +19,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class HashtagRepositoryTests {
 
+    private static final String firstValue = "#hash";
+    private static final String secondValue = "#hash2";
     @Autowired
     private HashtagRepository hashtagRepository;
-
     private Hashtag firstHashtag;
     private Hashtag secondHashtag;
-    private static final String firstValue = "#hash";
-    private static final String  secondValue = "#hash2";
 
     @BeforeEach
     public void init() {
         if (hashtagRepository.findAll().size() == 0) {
-            firstHashtag= new Hashtag();
+            firstHashtag = new Hashtag();
             firstHashtag.setValue(firstValue);
             firstHashtag = hashtagRepository.save(firstHashtag);
             secondHashtag = new Hashtag();
@@ -82,14 +80,14 @@ public class HashtagRepositoryTests {
 
     @Test
     public void shouldFindListOfHashtagValueCorrect() {
-        List<String> hashtagValues= hashtagRepository.findHashtagValues();
+        List<String> hashtagValues = hashtagRepository.findHashtagValues();
         assertTrue(hashtagValues.contains(firstValue));
         assertTrue(hashtagValues.contains(secondValue));
     }
 
     @Test
     public void shouldReturnAllHashtagsWithPagination() {
-        Pageable pageable = PageRequest.of(0,2);
+        Pageable pageable = PageRequest.of(0, 2);
         Page<Hashtag> hashtags = hashtagRepository.getAllTop(pageable);
         assertEquals(hashtags.getContent().get(1).getValue(), firstValue);
         assertEquals(hashtags.getContent().get(0).getValue(), secondValue);

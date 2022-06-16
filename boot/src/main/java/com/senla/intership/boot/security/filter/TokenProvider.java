@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.User;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -25,9 +24,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TokenProvider implements InitializingBean {
 
-    public static final String AUTHORIZATION_HEADER="Authorization";
-    public static final String DEFAULT_TOKEN_TYPE="Bearer ";
-    private static final String AUTHORITIES_KEY="auth";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String DEFAULT_TOKEN_TYPE = "Bearer ";
+    private static final String AUTHORITIES_KEY = "auth";
 
     @Value("${security.jwt.secret}")
     private String jwtSecret;
@@ -37,29 +36,29 @@ public class TokenProvider implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
-        this.key= Keys.hmacShaKeyFor(keyBytes);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public boolean validateToken(String authToken){
+    public boolean validateToken(String authToken) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(authToken);
             return true;
-        }catch (SecurityException | MalformedJwtException e){
+        } catch (SecurityException | MalformedJwtException e) {
             log.error("Invalid JWT signature.");
-        }catch (ExpiredJwtException e){
+        } catch (ExpiredJwtException e) {
             log.error("Expired JWT token");
-        }catch (UnsupportedJwtException e){
+        } catch (UnsupportedJwtException e) {
             log.error("Unsupported JWT token");
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             log.error("JWT token compact of handler are invalid");
         }
         return false;
     }
 
-    public Authentication getAuthentication(String token){
+    public Authentication getAuthentication(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -68,14 +67,13 @@ public class TokenProvider implements InitializingBean {
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(),"",authorities);
+        User principal = new User(claims.getSubject(), "", authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal,token,authorities);
+        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
-
 
 
 }

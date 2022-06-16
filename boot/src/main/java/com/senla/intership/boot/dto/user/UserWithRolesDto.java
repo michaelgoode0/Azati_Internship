@@ -1,6 +1,5 @@
 package com.senla.intership.boot.dto.user;
 
-import com.senla.intership.boot.dto.profile.UserProfileDto;
 import com.senla.intership.boot.dto.role.RoleDto;
 import lombok.Data;
 

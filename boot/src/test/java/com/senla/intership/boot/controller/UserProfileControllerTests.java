@@ -1,8 +1,8 @@
 package com.senla.intership.boot.controller;
 
 import com.senla.intership.boot.BootApplicationTests;
-import com.senla.intership.boot.api.repository.UserProfileRepository;
 import com.senla.intership.boot.entity.UserProfile;
+import com.senla.intership.boot.repository.UserProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +17,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 public class UserProfileControllerTests extends BootApplicationTests {
+    private final static String firstName = "Artyom";
+    private final static String secondName = "Ilya";
     @Autowired
     private UserProfileRepository profileRepository;
-
     private UserProfile firstProfile;
     private UserProfile secondProfile;
 
-    private final static String firstName = "Artyom";
-    private final static String secondName = "Ilya";
-
     @BeforeEach
-    public void init(){
+    public void init() {
         firstProfile = new UserProfile();
         firstProfile.setFirstname(firstName);
         firstProfile = profileRepository.save(firstProfile);
@@ -51,13 +49,13 @@ public class UserProfileControllerTests extends BootApplicationTests {
 
     @Test
     public void shouldUpdateCommentCorrect() throws Exception {
-        String postDto =String.format(
+        String postDto = String.format(
                 """
-                {
-                     "id": %s,
-                     "firstname": "Egor"
-                }
-                """,firstProfile.getId());
+                        {
+                             "id": %s,
+                             "firstname": "Egor"
+                        }
+                        """, firstProfile.getId());
         mockMvc.perform(
                 put("/profiles")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -73,7 +71,7 @@ public class UserProfileControllerTests extends BootApplicationTests {
     @Test
     public void shouldDeleteCommentCorrect() throws Exception {
         mockMvc.perform(
-                delete("/profiles/{id}",firstProfile.getId())
+                delete("/profiles/{id}", firstProfile.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .principal(authenticationToken))

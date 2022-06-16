@@ -1,8 +1,8 @@
 package com.azati.microservice.service;
 
+import com.azati.microservice.dto.LoginDto;
 import com.azati.microservice.dto.UserDto;
 import com.azati.microservice.filter.TokenProvider;
-import com.azati.microservice.dto.LoginDto;
 import com.azati.microservice.model.Role;
 import com.azati.microservice.model.RoleName;
 import com.azati.microservice.model.User;
@@ -35,9 +35,9 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
 
     @Transactional
     @Override
-    public String signIn(LoginDto dto){
+    public String signIn(LoginDto dto) {
         final UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(dto.getUsername(),dto.getPassword());
+                new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
         final Authentication authentication = authenticationManager.getObject().authenticate(authenticationToken);
         return tokenProvider.createToken(authentication);
     }

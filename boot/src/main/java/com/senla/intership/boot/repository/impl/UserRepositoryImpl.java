@@ -1,7 +1,7 @@
-package com.senla.intership.boot.api.repository.impl;
+package com.senla.intership.boot.repository.impl;
 
-import com.senla.intership.boot.api.repository.UserRepository;
 import com.senla.intership.boot.entity.User;
+import com.senla.intership.boot.repository.UserRepository;
 import com.senla.intership.boot.util.AbstractDao;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -107,12 +107,12 @@ public class UserRepositoryImpl extends AbstractDao<User> implements UserReposit
     @Override
     @SneakyThrows
     public User getByLoginJdbc(String login) {
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement
-                ("SELECT * FROM users WHERE username=?")){
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement
+                ("SELECT * FROM users WHERE username=?")) {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             User user = new User();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 user.setId(resultSet.getLong("id"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));

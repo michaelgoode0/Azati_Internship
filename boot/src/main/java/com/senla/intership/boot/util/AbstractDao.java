@@ -5,10 +5,9 @@ import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 
 public abstract class AbstractDao<T> implements GenericDao<T> {
+    private final Class<T> clazz;
     @PersistenceContext
     protected EntityManager entityManager;
-
-    private final Class<T> clazz;
 
     public AbstractDao() {
         this.clazz = getGenericEntityClass();
