@@ -10,6 +10,8 @@ import com.azati.microservice.repository.RoleRepository;
 import com.azati.microservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.Collections;
 
 @Service
@@ -44,9 +47,10 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
 
     @Override
     @Transactional
-    public UserDto signUp(LoginDto dto, RoleName roleName) {
+    @RabbitListener(queues = "Queue 1")
+    public UserDto signUp(LoginDto dto) {
         User user = new User();
-        Role userRole = roleRepository.findRoleByRoleName(roleName);
+        Role userRole = roleRepository.findRoleByRoleName(RoleName.ROLE_USER);
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRoles(Collections.singleton(userRole));

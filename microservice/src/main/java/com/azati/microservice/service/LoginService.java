@@ -7,5 +7,5 @@ import com.azati.microservice.model.RoleName;
 public interface LoginService {
     String signIn(LoginDto dto);
 
-    UserDto signUp(LoginDto dto, RoleName roleName);
+    UserDto signUp(LoginDto dto);
 }

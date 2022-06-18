@@ -11,3 +11,5 @@ spring:
     url: jdbc:postgresql://db:5432/database
     username: postgres
     password: qny47bsq
+  rabbitmq:
+    host: rabbitmq
