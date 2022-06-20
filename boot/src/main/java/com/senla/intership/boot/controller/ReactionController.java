@@ -1,8 +1,12 @@
 package com.senla.intership.boot.controller;
 
+import com.senla.intership.boot.dto.post.PostDto;
 import com.senla.intership.boot.dto.reaction.ReactionWithProfileDto;
 import com.senla.intership.boot.service.ReactionService;
 import com.senla.intership.boot.util.SortHelper;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +25,12 @@ public class ReactionController {
     private final ReactionService reactionService;
 
     @GetMapping("/{postId}")
+    @ApiOperation(value = "Get all posts", response = PostDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "The resource not found"),
+            @ApiResponse(code = 403, message = "Reactions are not exist.")
+    })
     public ResponseEntity<List<ReactionWithProfileDto>> getAllByPost(@RequestParam(required = false, defaultValue = "id") String[] sort,
                                                                      @RequestParam(required = false, defaultValue = "0") Integer page,
                                                                      @RequestParam(required = false, defaultValue = "asc") String direction,
