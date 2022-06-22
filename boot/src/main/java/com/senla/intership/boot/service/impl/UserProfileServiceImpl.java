@@ -65,6 +65,8 @@ public class UserProfileServiceImpl implements UserProfileService {
             userProfile.setPhoneNumber(userProfile.getPhoneNumber());
             userProfile.setSurname(userProfile.getSurname());
             userProfile.setTown(userProfile.getTown());
+            user.setProfile(userProfile);
+            userRepository.save(user);
             UserProfile response = userProfileRepository.save(userProfile);
             return mapper.map(response, UserProfileWithAllDto.class);
         }
