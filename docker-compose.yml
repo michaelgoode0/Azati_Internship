@@ -31,7 +31,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-     # environment:
+      # environment:
       #- RABBITMQ_DEFAULT_USER=rabbit
       #- RABBITMQ_DEFAULT_PASS=password
     volumes:
@@ -50,3 +50,5 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
+volumes:
+  data: { }

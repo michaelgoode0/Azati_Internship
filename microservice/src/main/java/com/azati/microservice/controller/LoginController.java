@@ -2,7 +2,6 @@ package com.azati.microservice.controller;
 
 import com.azati.microservice.dto.LoginDto;
 import com.azati.microservice.dto.UserDto;
-import com.azati.microservice.model.RoleName;
 import com.azati.microservice.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

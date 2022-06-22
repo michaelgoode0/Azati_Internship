@@ -1,7 +1,6 @@
 package com.senla.intership.boot.security.service;
 
 import com.senla.intership.boot.dto.user.LoginDto;
-import com.senla.intership.boot.dto.user.UserDto;
 import com.senla.intership.boot.dto.user.UserWithAllDto;
 import com.senla.intership.boot.dto.user.UserWithRolesDto;
 import com.senla.intership.boot.entity.User;
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public UserWithRolesDto signUp(LoginDto dto) {
         if (userRepository.getByNameWithRoles(dto.getUsername()) == null) {
             rabbitTemplate.setExchange("Exchange");
-            return mapper.map(rabbitTemplate.convertSendAndReceive("user",dto), UserWithRolesDto.class) ;
+            return mapper.map(rabbitTemplate.convertSendAndReceive("user", dto), UserWithRolesDto.class);
         }
         throw new AuthException("User " + dto.getUsername() + " already exist");
     }
