@@ -100,7 +100,6 @@ public class PostController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<PostWithAllDto>> getAll(@RequestParam(required = false, defaultValue = "id") String sort,
                                                        @RequestParam(required = false, defaultValue = "0") Integer page,
                                                        @RequestParam(required = false, defaultValue = "asc") String direction,

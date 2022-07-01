@@ -32,7 +32,8 @@ public class UserServiceImpl implements UserService {
     public UserWithRolesDto signUp(LoginDto dto) {
         if (userRepository.getByNameWithRoles(dto.getUsername()) == null) {
             rabbitTemplate.setExchange("Exchange");
-            return mapper.map(rabbitTemplate.convertSendAndReceive("user", dto), UserWithRolesDto.class);
+            rabbitTemplate.convertSendAndReceive("user", dto);
+            return mapper.map(userRepository.getByName(dto.getUsername()), UserWithRolesDto.class);
         }
         throw new AuthException("User " + dto.getUsername() + " already exist");
     }
@@ -59,5 +60,4 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getByName(username);
         return mapper.map(user, UserWithAllDto.class);
     }
-
 }

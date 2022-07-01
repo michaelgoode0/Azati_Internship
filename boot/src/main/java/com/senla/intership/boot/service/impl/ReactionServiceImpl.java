@@ -7,7 +7,6 @@ import com.senla.intership.boot.dto.user.UserWithAllDto;
 import com.senla.intership.boot.entity.Post;
 import com.senla.intership.boot.entity.Reaction;
 import com.senla.intership.boot.entity.UserProfile;
-import com.senla.intership.boot.repository.PostRepository;
 import com.senla.intership.boot.repository.ReactionRepository;
 import com.senla.intership.boot.service.ReactionService;
 import com.senla.intership.boot.service.UserService;
@@ -27,7 +26,6 @@ import java.util.stream.Collectors;
 public class ReactionServiceImpl implements ReactionService {
 
     private final ReactionRepository reactionRepository;
-    private final PostRepository postRepository;
     private final UserService userService;
     private final ModelMapper mapper;
 
@@ -61,9 +59,9 @@ public class ReactionServiceImpl implements ReactionService {
                 .filter(k -> k.getPost().getId().equals(post.getId()) && k.getProfile().getId().equals(userProfile.getId()))
                 .findFirst().orElse(null);
         if (postReaction != null) {
-            Boolean isLike = postReaction.getReaction();
+            boolean isLike = postReaction.getReaction();
             reactionRepository.deleteById(postReaction.getId());
-            if (!isLike.equals(react)) {
+            if (isLike != react) {
                 reactionRepository.save(reaction);
             }
         } else {
